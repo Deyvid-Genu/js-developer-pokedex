@@ -1,24 +1,92 @@
 * {
-    font-family: 'Roboto', sans-serif;
-    box-sizing: border-box;
-}
-
-body {
-    background-color: #f6f8fc;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
 }
 
 .content {
-    width: 100vw;
-    height: 100vh;
-    padding: 1rem;
-    background-color: #fff;
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-@media screen and (min-width: 992px) {
-    .content {
-        max-width: 992px;
-        height: auto;
-        margin: 1rem auto;
-        border-radius: 1rem;
-    }
+.card {
+  background-color: #99dd77;
+  padding: 0.5rem;
+  min-width: 8rem;
+  border: none;
+  border-radius: 1rem;
+}
+
+.card img {
+  min-width: 6rem;
+  max-width: 9rem;
+  min-height: 6rem;
+  max-height: 9rem;
+}
+
+.card .info {
+  display: grid;
+  grid-template: "name name name number";
+  align-items: center;
+}
+
+.card .info .name {
+  font-size: 1.5rem;
+  grid-area: name;
+}
+
+.card .info .number {
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.5);
+  grid-area: number;
+}
+.card .info .types {
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  border-radius: 1rem;
+  padding: 0.125rem;
+}
+
+.card .stats {
+  display: none;
+  background-color: #eeeeee;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 1rem;
+  font-size: 0.6rem;
+  justify-content: space-between;
+}
+
+.card .points {
+  display: flex;
+  flex-direction: column;
+}
+
+.card .abilities {
+  display: flex;
+  flex-direction: column;
+}
+
+.card .subtitle {
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.7);
+  margin-bottom: 0.5rem;
+}
+
+.card.active .stats {
+  display: flex;
+  background-color: #eeeeee;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 1rem;
+  font-size: 0.85rem;
+  justify-content: space-between;
 }

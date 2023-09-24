@@ -1,47 +1,86 @@
-const pokemonList = document.getElementById('pokemonList')
-const loadMoreButton = document.getElementById('loadMoreButton')
+const pokemonList = document.getElementById("pokemonList");
+const loadMoreButton = document.getElementById("loadMoreButton");
 
-const maxRecords = 151
-const limit = 10
+const maxRecords = 151;
+const limit = 10;
 let offset = 0;
 
 function convertPokemonToLi(pokemon) {
-    return `
-        <li class="pokemon ${pokemon.type}">
-            <span class="number">#${pokemon.number}</span>
-            <span class="name">${pokemon.name}</span>
-
-            <div class="detail">
-                <ol class="types">
-                    ${pokemon.types.map((type) => `<li class="type ${type}">${type}</li>`).join('')}
-                </ol>
-
-                <img src="${pokemon.photo}"
-                     alt="${pokemon.name}">
-            </div>
-        </li>
-    `
+  return `
+ 
+        <div class="card">
+        <img
+          src="${pokemon.photo}"
+          alt="${pokemon.name}">
+        <div class="info">
+          <span class="name">${pokemon.name}</span>
+          <span class="number">#${pokemon.number}</span>
+          ${pokemon.types
+            .map((type) => `<span class="types ${type}">${type}</span>`)
+            .join("")}
+        </div>
+        <div class="stats">
+          <div class="points">
+            <span class="subtitle">Points</span>
+            ${pokemon.stats
+              .map((stat) => `<span class="type ${stat}">${stat}</span>`)
+              .join("")}
+          </div>
+          <div class="abilities">
+            <span class="subtitle">Abilities</span>
+            ${pokemon.abilities
+              .map(
+                (ability) => `<span class="type ${ability}">${ability}</span>`
+              )
+              .join("")}
+          </div>
+        </div>
+      </div>
+    `;
 }
 
 function loadPokemonItens(offset, limit) {
-    pokeApi.getPokemons(offset, limit).then((pokemons = []) => {
-        const newHtml = pokemons.map(convertPokemonToLi).join('')
-        pokemonList.innerHTML += newHtml
-    })
+  return new Promise((resolve, reject) => {
+    pokeApi
+      .getPokemons(offset, limit)
+      .then((pokemons = []) => {
+        const newHtml = pokemons.map(convertPokemonToLi).join("");
+        pokemonList.innerHTML += newHtml;
+        resolve();
+      })
+      .catch(reject);
+  });
 }
 
-loadPokemonItens(offset, limit)
+async function addClickCard() {
+  await loadPokemonItens(offset, limit);
 
-loadMoreButton.addEventListener('click', () => {
-    offset += limit
-    const qtdRecordsWithNexPage = offset + limit
+  console.log("Adicionando event listeners aos cards...");
+  const cards = document.querySelectorAll(".card");
+  console.log(cards);
 
-    if (qtdRecordsWithNexPage >= maxRecords) {
-        const newLimit = maxRecords - offset
-        loadPokemonItens(offset, newLimit)
+  cards.forEach((card) => {
+    card.addEventListener("click", () => {
+      console.log("Clicou no card:", card);
+      card.classList.toggle("active");
+    });
+  });
+  console.log("Event listeners adicionados aos cards.");
+}
 
-        loadMoreButton.parentElement.removeChild(loadMoreButton)
-    } else {
-        loadPokemonItens(offset, limit)
-    }
-})
+loadMoreButton.addEventListener("click", () => {
+  offset += limit;
+  const qtdRecordsWithNexPage = offset + limit;
+
+  if (qtdRecordsWithNexPage >= maxRecords) {
+    const newLimit = maxRecords - offset;
+    loadPokemonItens(offset, newLimit);
+
+    loadMoreButton.parentElement.removeChild(loadMoreButton);
+  } else {
+    loadPokemonItens(offset, limit);
+  }
+  addClickCard();
+});
+
+addClickCard();
