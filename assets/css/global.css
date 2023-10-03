@@ -11,9 +11,11 @@
   flex-wrap: wrap;
   justify-content: center;
 }
+.container {
+  max-height: fit-content;
+}
 
 .card {
-  background-color: #99dd77;
   padding: 0.5rem;
   min-width: 8rem;
   border: none;

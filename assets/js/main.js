@@ -6,9 +6,8 @@ const limit = 10;
 let offset = 0;
 
 function convertPokemonToLi(pokemon) {
-  return `
- 
-        <div class="card">
+  return `<div class="container">
+        <div class="card ${pokemon.type}">
         <img
           src="${pokemon.photo}"
           alt="${pokemon.name}">
@@ -36,7 +35,7 @@ function convertPokemonToLi(pokemon) {
           </div>
         </div>
       </div>
-    `;
+      </div> </div>   `;
 }
 
 function loadPokemonItens(offset, limit) {

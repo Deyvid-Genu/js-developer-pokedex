@@ -88,3 +88,7 @@
   border: none;
   border-radius: 1rem;
 }
+
+.types {
+  filter: brightness(120%);
+}
